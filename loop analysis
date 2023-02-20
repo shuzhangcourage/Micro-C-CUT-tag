@@ -1,0 +1,13 @@
+#call loop using juicebox
+java -jar juicer_tools_1.22.01.jar hiccups -m 1024 -r 5000,10000 -k KR <input.hic> <output>; 
+#call loop using mustache
+mustache -f <input.mcool> -o <output> -r <resolutions> -st <0.88> -pt <0.01> -p <10>; 
+#call loop using cooltools
+cooltools call-dots -p <10> --max-loci-separation <10000000> --fdr <0.01> --dots-clustering-radius <29000> -o <output> <input.mcool::/resolutions/resolutions>.
+
+
+#example of using pgltools
+pgltools intersect -a <control.bedpe> -b <degron.bedpe> -wa -d 30000 > <shared_inC>; 
+pgltools intersect -a <degron.bedpe> -b <control.bedpe> -v -d 30000 > <special_inA>. 
+##An example of flexibility use pgltools to deal with coordinates of loops among three samples: 
+pgltools intersect -a <control.loops> -b <auxin.loops> -d 30000 -v | pgltools intersect -stdInA -b <tri.loops> -d 30000 -v > <control.specific.loops>.
