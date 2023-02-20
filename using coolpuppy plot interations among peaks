@@ -1,0 +1,4 @@
+##using coolpuppy to show plots
+#analysis of peaks
+coolpup.py <::/resolutions/1000> <peak.bed> --outname <outfile> --pad 50 --maxdist <2000000> --mindist <20000>; 
+plotpup.py <infile> --n_cols <number of columns> --col_names <ctrl,auxin> --row_names <ctrl,auxin> -o <out.png>.
