@@ -1,0 +1,2 @@
+#analysis for subcompartment with CALDER
+CALDER_main(paste0("<KR_balanced_OB>"), chr="X", bin_size=50000, out_dir='<outname>', sub_domains=TRUE, save_intermediate_data=TRUE).
