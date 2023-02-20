@@ -1,0 +1,8 @@
+##mapping Micro-C reads to human genome 
+#input files: reads
+bwa mem -5SP -T0 -t <cores> <ref.fa> <MicroC.R1.fastq.gz> <MicroC.R2.fastq.gz> | pairtools parse --min-mapq 40 --walks-policy 5unique --max-inter-align-gap 30 --nproc-in <cores> --nproc-out <cores> --chroms-path <ref.genome> | pairtools sort --tmpdir=<full_path/to/tmpdir> --nproc <cores> | pairtools dedup --nproc-in <cores> --nproc-out <cores> --mark-dups --output-stats <stats.txt> | pairtools split --nproc-in <cores> --nproc-out <cores> --output-pairs <mapped.pairs> --output-sam - | samtools view -bS -@<cores> | samtools sort -@<cores> -o <mapped.PT.bam>; samtools index <mapped.PT.bam>
+##Generating matrices:
+bgzip <mapped.pairs>
+pairix <mapped.pairs.gz>
+cooler cload pairix -p 16 hg38.genome:1000 mapped.pairs.gz matrix_1kb.cool
+cooler zoomify --balance -p 16 -r 1000N matrix_1kb.cool
